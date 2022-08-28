@@ -1,5 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Form, Panel, SelectPicker, Dropdown, Row } from "rsuite";
+import {
+  Button,
+  Form,
+  Panel,
+  SelectPicker,
+  Dropdown,
+  Row,
+  Input,
+} from "rsuite";
 import { FlexboxGrid, Col } from "rsuite";
 import {
   addAttribute,
@@ -87,7 +95,9 @@ function TypesForm({ item }: { item: MachineType }) {
         <Form>
           <Form.Group controlId="type">
             <Form.ControlLabel>Object type</Form.ControlLabel>
-            <Form.Control
+
+            <Input
+              style={{ width: `100%` }}
               name="type"
               value={item.title}
               onChange={onTypeNameChange}
@@ -96,12 +106,14 @@ function TypesForm({ item }: { item: MachineType }) {
 
           <Form.Group controlId="title">
             <Form.ControlLabel>SelectPicker:</Form.ControlLabel>
-            <Form.Control
+
+            <SelectPicker
               name="title"
-              accepter={SelectPicker}
               data={selectData}
               onSelect={onSelectTypeTitle}
               value={item.titleFeild}
+              cleanable={false}
+              style={{ width: `100%` }}
             />
           </Form.Group>
 
@@ -122,10 +134,12 @@ function TypesForm({ item }: { item: MachineType }) {
                   value={attribute.name}
                 />
                 <Form.Control
+                  style={{ width: 100 }}
                   name="attribute.type"
                   accepter={SelectPicker}
                   data={FeildTypes.map((i) => ({ label: i, value: i }))}
                   value={attribute.type}
+                  cleanable={false}
                   onSelect={(selected: any) => {
                     dispatch(
                       updateAttributeItem({

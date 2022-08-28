@@ -114,20 +114,21 @@ function MachineForm({ item }: { item: Machine }) {
               return (
                 <Form.Group controlId={typeItem.id}>
                   <Form.ControlLabel>{typeItem.name}</Form.ControlLabel>
-                  <Form.Control
+                  <DatePicker
+                    style={{ width: "100%", display: "block" }}
                     name={typeItem.id}
                     value={
                       item[typeItem.id] ? new Date(item[typeItem.id]) : null
                     }
-                    accepter={DatePicker}
-                    onChange={(value: string) => {
-                      dispatch(
-                        updateMachine({
-                          id: item.id,
-                          feildId: typeItem.id,
-                          value: value,
-                        })
-                      );
+                    onChange={(value: Date | null) => {
+                      if (value)
+                        dispatch(
+                          updateMachine({
+                            id: item.id,
+                            feildId: typeItem.id,
+                            value: value?.toISOString(),
+                          })
+                        );
                     }}
                   />
                 </Form.Group>
